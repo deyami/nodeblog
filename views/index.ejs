@@ -1,0 +1,11 @@
+<% for(var i = 0 ;i< locals.posts.length;i++){%>
+    <div>
+          <h2><a href="/post/detail/<%= locals.posts[i].bid%>"><%= locals.posts[i].title%></a></h2>
+          <span class="label label-info"><%= locals.posts[i].category%></span>
+          <span class="muted">由<%= locals.posts[i].author%>编写于--<%= locals.posts[i].last_update%></span>
+          <br/>
+          <br/>
+          <p><%- locals.posts[i].content%></p>
+    </div>
+    <hr/>
+<% }%>

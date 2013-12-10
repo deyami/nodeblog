@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= locals.title%></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/css/prettify.css" type="text/css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="/css/shCoreRDark.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
+     
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+ 
+  </head>
+
+  <body>
+    <% include top%>
+
+    <div class="container-narrow">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/">主页</a></li>
+          <li><a href="/login">登录</a></li>
+          <li><a href="/contact">关于</a></li>
+        </ul>
+        <h1 class="muted"><%= locals.title%></h1>
+        <h3 class="muted"><%= locals.subtitle%></h3>
+      </div>
+      <hr/>
+      <div class="container-fluid">
+        <div class="span16">
+        <div class="row-fluid">
+          <div class="span9">
+            <div class="row-fluid marketing">
+              <%- body %>
+            </div>
+          </div>
+          <div class="span3" style="padding:20px 20px">
+            <div class="row-fluid marketing">
+              <h3 class="muted">分享</h3>
+              <div><% include share-sina%></div>
+              <div><% include share-renren%></div>
+	             <br/>
+	             <br/>
+	             <br/>
+              <h3 class="muted">最近</h3>      
+		          <ul>
+		            <% for(var i = 0 ;i< locals.posts.length;i++){%>
+          		  <li><a href="/post/detail/<%= locals.posts[i].bid%>"><%= posts[i].title%></a></li>
+		            <% }%>
+              </ul> 
+	             <br/>
+	             <br/>
+	             <br/>
+              <h3 class="muted">分享</h3> 
+		          <ul>
+		            <% for(var i = 0 ;i< locals.links.length;i++){%>
+          		  <li><a href="<%= locals.links[i].link%>" target="_blank"><%= links[i].text%></a></li>
+		            <% }%>
+              </ul>     
+              <br/>
+              <br/>
+              <br/>
+              <h3 class="muted">功能</h3>
+              <h5 class="muted">暂不开放...</h5>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <hr/>
+      <% include foot%>
+    </div> <!-- /container -->
+  
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/shCore.js"></script>
+    <script type="text/javascript" src="/js/shBrushJava.js"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+  </body>
+</html>

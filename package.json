@@ -1,0 +1,19 @@
+{
+  "name": "nodeblog",
+  "version": "0.0.1",
+  "private": true,
+  "description": "a blog write in nodejs",
+  "keywords": ["blog"],
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.6",
+    "express-partials": "0.0.6",
+    "connect-redis": "1.4.5",
+    "mysql":"2.0.0-alpha5",
+    "ejs":"0.8.3",
+    "connect":"2.7.1"
+  }
+
+}

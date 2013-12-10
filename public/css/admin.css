@@ -1,0 +1,33 @@
+  html,body {
+        padding-top: 20px;
+        height: 100%;
+      }
+
+      .wrap {
+        min-height: 87%;
+        height: 87%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+      
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      .bs-docs-sidenav .icon-chevron-right {
+        float: right;
+        margin-right: -6px;
+        margin-top: 2px;
+        opacity: 0.25;
+      } 
+
+      .bs-docs-sidenav > li:first-child > a {
+        border-radius: 6px 6px 0 0;
+      }
+
+      .bs-docs-sidenav > li > a {
+        border: 1px solid #E5E5E5;
+        display: block;
+        margin: 0 0 -1px;
+        padding: 8px 14px;
+      }
