@@ -1,30 +1,32 @@
- <% if(locals.user) {%>
- 	<div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
+<% if(locals.user) { %>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Stanley' Home</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="/">主页</a></li>
-              <li><a href="/admin/main">管理</a></li>
-            </ul>
-            <ul class="nav pull-right">
-              <li class="dropdown">
-                <a class="navbar-link pull-right dropdown-toggle" data-toggle="dropdown" href="#">
-              		Logged in as <%= locals.user.username%> <b class="caret"></b>
-            	</a>
-                <ul class="dropdown-menu">
-                    <li><a href="/dologout">Logout</a></li>
-                 </ul>
-               </li>
-            </ul>
-          </div><!--/.nav-collapse -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Stanley' Home</a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li><a href="/">主页</a></li>
+                    <li><a href="/admin/main">管理</a></li>
+                </ul>
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a class="navbar-link pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+                            Logged in as <%= locals.user.username %> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/dologout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-      </div>
     </div>
-<% }%>
+</div>
+<% } %>
