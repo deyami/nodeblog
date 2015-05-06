@@ -34,9 +34,10 @@ var checkNotLogin = function (req, res, next) {
 };
 
 //设定路由表
-module.exports = function (app) {
+module.exports = function (express) {
 
-    app.get('/', function (req, res, next) {
+    var router = express.Router();
+    router.get('/', function (req, res, next) {
         Post.getAll(function (err, posts) {
 
             if (err) {
@@ -53,21 +54,21 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/contact', function (req, res, next) {
+    router.get('/contact', function (req, res, next) {
         res.render('contact', {layout: false});
     });
 
-    app.get('/login', function (req, res, next) {
+    router.get('/login', function (req, res, next) {
         res.render('login', {layout: false});
     });
 
-    app.get('/reg', checkNotLogin);
-    app.get('/reg', function (req, res, next) {
+    router.get('/reg', checkNotLogin);
+    router.get('/reg', function (req, res, next) {
         res.render('reg', {layout: false})
     });
 
-    app.get('/admin/:page', checkLogin);
-    app.get('/admin/:page', function (req, res, next) {
+    router.get('/admin/:page', checkLogin);
+    router.get('/admin/:page', function (req, res, next) {
         if (req.params.page === 'main') {
             res.render('main', {admintitle: '概况', layout: 'admin-layout'});
         } else if (req.params.page === 'new') {
@@ -91,8 +92,8 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/admin/edit/:bid', checkLogin);
-    app.get('/admin/edit/:bid', function (req, res, next) {
+    router.get('/admin/edit/:bid', checkLogin);
+    router.get('/admin/edit/:bid', function (req, res, next) {
         if (!req.params.bid) {
             res.redirect('/admin/main');
             return;
@@ -122,25 +123,25 @@ module.exports = function (app) {
     });
 
 
-    app.get('/dologout', biz.logout);
-    app.post('/dologin', biz.login);
-    app.post('/doreg', biz.register);
-    app.post('/post/save', checkAjaxLogin);
-    app.post('/post/save', biz.save_post);
-    app.get('/post/detail/:bid', biz.get_post_detail);
+    router.get('/dologout', biz.logout);
+    router.post('/dologin', biz.login);
+    router.post('/doreg', biz.register);
+    router.post('/post/save', checkAjaxLogin);
+    router.post('/post/save', biz.save_post);
+    router.get('/post/detail/:bid', biz.get_post_detail);
 
-    app.get('/post/:bid', checkLogin);
-    app.get('/post/:bid', biz.get_post_data);
+    router.get('/post/:bid', checkLogin);
+    router.get('/post/:bid', biz.get_post_data);
 
-    app.get('/post/delete/:bid', checkLogin);
-    app.get('/post/delete/:bid', biz.delete_post);
+    router.get('/post/delete/:bid', checkLogin);
+    router.get('/post/delete/:bid', biz.delete_post);
 
-    app.post('/post/edit', checkLogin);
-    app.post('/post/edit', biz.edit_post);
+    router.post('/post/edit', checkLogin);
+    router.post('/post/edit', biz.edit_post);
 
 
 //拦截所有请求，如果走到此处，说明没有页面
-    app.get('/*', function (req, res) {
+    router.get('/*', function (req, res) {
         res.render('error/404', {
             status: 404, layout: false
         });

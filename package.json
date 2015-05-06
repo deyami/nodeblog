@@ -8,12 +8,22 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.6",
-    "express-partials": "0.0.6",
-    "connect-redis": "1.4.5",
-    "mysql":"2.0.0-alpha5",
-    "ejs":"0.8.3",
-    "connect":"2.7.1",
+    "express": "4.12.3",
+    "body-parser":"",
+    "cookie-parser":"",
+    "morgan":"",
+    "express-session":"",
+    "serve-favicon":"",
+    "errorhandler":"",
+    "method-override":"",
+    "connect-timeout":"",
+    "serve-index":"",
+    "serve-static":"",
+    "connect-redis": "2.3.0",
+    "mysql":"2.6.2",
+    "ejs":"2.3.1",
+    "connect":"3.3.5",
+    "async":"0.9.0"
   }
 
 }
