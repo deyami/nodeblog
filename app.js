@@ -17,18 +17,18 @@ var dbsetting = require('./orm/dbsetting');
 
 var app = express();
 
-    app.use(partials());
-    app.set('port', process.env.PORT || setting.port);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'ejs');
-    app.use(favicon());
-    app.use(morgan('dev'));
-    app.use(bodyParser());
-    app.use(cookieParser());
-    app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
-    app.use(methodOverride());
-    app.use(errorhandler());
-    app.use(serveStatic(path.join(__dirname, 'public')));
+app.use(partials());
+app.set('port', process.env.PORT || setting.port);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(favicon());
+app.use(morgan('dev'));
+app.use(bodyParser());
+app.use(cookieParser());
+app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
+app.use(methodOverride());
+app.use(errorhandler());
+app.use(serveStatic(path.join(__dirname, 'public')));
 
 
 routes(app);//执行路由

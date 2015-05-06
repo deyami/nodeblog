@@ -9,6 +9,6 @@ module.exports = {
     },
     redis: {
         host: 'localhost',
-        port: 5710
+        port: 9999
     }
 }
