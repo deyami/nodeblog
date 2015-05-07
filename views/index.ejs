@@ -31,16 +31,16 @@
             <li><a href="/login">登录</a></li>
             <li><a href="/contact">关于</a></li>
         </ul>
-        <h1 class="muted"><%= title %></h1>
+        <h1><%= title %></h1>
 
         <h3 class="muted"><%= subtitle %></h3>
     </div>
     <hr/>
     <div class="container-fluid">
-        <div class="span16">
-            <div class="row-fluid">
-                <div class="span9">
-                    <div class="row-fluid marketing">
+        <div class="span17">
+            <div class="row">
+                <div class="span7">
+                    <div class="row marketing">
                         <% for(var i = 0 ;i < posts.length;i++){ %>
                         <div>
                             <h2><a href="/post/detail/<%= posts[i].pid %>"><%= posts[i].title %></a></h2>
@@ -55,8 +55,8 @@
                         <% } %>
                     </div>
                 </div>
-                <div class="span3" style="padding:20px 20px">
-                    <div class="row-fluid marketing">
+                <div class="span2">
+                    <div class="row">
                         <h3 class="muted">分享</h3>
 
                         <div>
