@@ -1,8 +1,8 @@
 var crypto = require('crypto');
-var User = require('./orm/user');
-var Post = require('./orm/post');
-var Category = require('./orm/category');
-var Link = require('./orm/sharedlink');
+var User = require('./model/user');
+var Post = require('./model/post');
+var Category = require('./model/category');
+var Link = require('./model/sharedlink');
 
 var md5 = function (ps) {
     var md5 = crypto.createHash('md5');

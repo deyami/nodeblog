@@ -13,7 +13,7 @@ var path = require('path');
 var setting = require('./setting');
 var middleware = require('./middleware');
 //var RedisStore = require('connect-redis')(express);
-var dbsetting = require('./orm/dbsetting');
+var dbsetting = require('./model/dbsetting');
 
 var app = express();
 

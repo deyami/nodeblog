@@ -1,8 +1,8 @@
 var Q = require('q');
 var biz = require('../biz');
-var Post = require('../orm/post');
-var Category = require('../orm/category');
-var Link = require('../orm/sharedlink');
+var Post = require('./post');
+var Category = require('./category');
+var Link = require('./sharedlink');
 
 //断言用户已经登录，如未登录，重定向至登录页面
 var checkLogin = function (req, res, next) {
