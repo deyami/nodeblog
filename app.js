@@ -12,26 +12,29 @@ var http = require('http');
 var path = require('path');
 var setting = require('./setting');
 var middleware = require('./middleware');
-var RedisStore = require('connect-redis')(express);
+//var RedisStore = require('connect-redis')(express);
 var dbsetting = require('./orm/dbsetting');
 
 var app = express();
 
-app.use(partials());
 app.set('port', process.env.PORT || setting.port);
-app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(favicon());
+app.set('views', path.join(process.cwd(), 'views'));
+app.use(serveStatic(path.join(process.cwd(), 'public')));
+//app.use(favicon());
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(cookieParser());
-app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
+//app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
 app.use(methodOverride());
-app.use(errorhandler());
-app.use(serveStatic(path.join(__dirname, 'public')));
+//app.use(errorhandler());
 
 
+
+app.use(middleware.errorHandler);
+app.use(middleware.sessionHandler);
 routes(app);//执行路由
+//app.locals.title = setting.title;
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("server listening on port " + app.get('port'));

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><%= locals.title %></title>
+    <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -37,7 +37,7 @@
         </label>
         <button class="btn btn-large btn-primary" type="submit">登录</button>
 
-        <% if(locals.error) { %>
+        <% if(error) { %>
         <hr/>
         <div class="alert alert-error">
             <strong>Warning!</strong> <%= error %>

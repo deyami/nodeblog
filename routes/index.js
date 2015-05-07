@@ -34,10 +34,9 @@ var checkNotLogin = function (req, res, next) {
 };
 
 //设定路由表
-module.exports = function (express) {
-
-    var router = express.Router();
+module.exports = function (router) {
     router.get('/', function (req, res, next) {
+        console.log("run");
         Post.getAll(function (err, posts) {
 
             if (err) {
@@ -55,6 +54,7 @@ module.exports = function (express) {
     });
 
     router.get('/contact', function (req, res, next) {
+        console.log("run");
         res.render('contact', {layout: false});
     });
 
