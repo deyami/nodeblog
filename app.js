@@ -7,11 +7,11 @@ var favicon = require('serve-favicon');
 var errorhandler = require('errorhandler');
 var methodOverride = require('method-override');
 var serveStatic = require('serve-static');
-var routes = require('./routes');
+var routes = require('./controller/controller');
 var http = require('http');
 var path = require('path');
 var setting = require('./setting');
-var middleware = require('./middleware');
+var filter = require('./controller/filter');
 //var RedisStore = require('connect-redis')(express);
 var dbsetting = require('./model/dbsetting');
 
@@ -27,14 +27,15 @@ app.use(bodyParser());
 app.use(cookieParser());
 //app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
 app.use(methodOverride());
-//app.use(errorhandler());
+app.use(errorhandler());
 
 
 
-app.use(middleware.errorHandler);
-app.use(middleware.sessionHandler);
+//app.use(filter.errorHandler);
+app.use(filter.sessionHandler);
 routes(app);//执行路由
-//app.locals.title = setting.title;
+app.locals.title = setting.title;
+app.locals.subtitle = setting.subtitle;
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("server listening on port " + app.get('port'));

@@ -1,8 +1,8 @@
 var Q = require('q');
 var biz = require('../biz');
-var Post = require('./post');
-var Category = require('./category');
-var Link = require('./sharedlink');
+var Post = require('../model/post');
+var Category = require('../model/category');
+var Link = require('../model/sharedlink');
 
 //断言用户已经登录，如未登录，重定向至登录页面
 var checkLogin = function (req, res, next) {
@@ -48,7 +48,8 @@ module.exports = function (router) {
                     res.render('index', result);
                 }).catch(function (err) {
                     if (err) {
-                        res.redirect('500');
+                        console.log(err);
+                        res.redirect('/error/500');
                         return;
                     }
                 });
@@ -56,7 +57,6 @@ module.exports = function (router) {
     );
 
     router.get('/contact', function (req, res, next) {
-        console.log("run");
         res.render('contact', {layout: false});
     });
 
@@ -143,15 +143,20 @@ module.exports = function (router) {
     router.post('/post/edit', checkLogin);
     router.post('/post/edit', biz.edit_post);
 
+    router.use('/error/500', function (req, res) {
+        res.render('error/500', {
+            status: 500, layout: false
+        });
+    });
+
 
 //拦截所有请求，如果走到此处，说明没有页面
     router.get('/*', function (req, res) {
         res.render('error/404', {
             status: 404, layout: false
         });
-    })
-}
-;
+    });
+};
 
 
 
