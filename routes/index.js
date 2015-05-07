@@ -36,7 +36,7 @@ var checkNotLogin = function (req, res, next) {
 //设定路由表
 module.exports = function (router) {
     router.get('/', function (req, res, next) {
-        console.log("run");
+        console.log("run index");
         Post.getAll(function (err, posts) {
 
             if (err) {

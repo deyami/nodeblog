@@ -19,9 +19,9 @@ var app = express();
 
 app.set('port', process.env.PORT || setting.port);
 app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), 'views'));
-app.use(serveStatic(path.join(process.cwd(), 'public')));
-//app.use(favicon());
+app.set('views', path.join(__dirname, 'views'));
+app.use(serveStatic(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(cookieParser());
