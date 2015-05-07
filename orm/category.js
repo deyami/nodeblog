@@ -25,8 +25,8 @@ Category.get = function (bid) {
             deferred.resolve(category);
         }
         connection.end();//先关连接
-        return deferred;
     });
+    return deferred.promise;
 };
 
 Category.getAll = function () {
@@ -47,8 +47,8 @@ Category.getAll = function () {
             deferred.resolve(categorys);
         }
         connection.end();
-        return deferred;
     });
+    return deferred.promise;
 };
 
 Category.prototype.save = function (callback) {

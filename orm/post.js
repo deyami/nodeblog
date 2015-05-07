@@ -27,7 +27,7 @@ Post.get = function (bid) {
             deferred.resolve(results);
         }
         connection.end();
-        return deferred;
+        return deferred.promise;
     });
 };
 
@@ -69,7 +69,7 @@ Post.getAll = function () {
         }
         connection.end();
     });
-    return deferred;
+    return deferred.promise;
 };
 
 Post.prototype.save = function save(callback) {

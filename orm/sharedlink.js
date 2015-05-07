@@ -29,8 +29,8 @@ SharedLink.getAll = function () {
             deferred.resolve(links);
         }
         connection.end();
-        return deferred;
     });
+    return deferred.promise;
 }
 
 SharedLink.prototype.save = function (callback) {

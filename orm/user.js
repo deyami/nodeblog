@@ -26,8 +26,8 @@ User.get = function (username) {
             deferred.resolve(user);
         }
         connection.end();
-        return deferred;
     });
+    return deferred.promise;
 }
 
 User.prototype.save = function (callback) {
