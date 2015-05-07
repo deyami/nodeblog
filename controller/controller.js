@@ -105,25 +105,26 @@ module.exports = function (router) {
         }
 
         var result = {};
-        Category.getAll().then(function (categorys) {
-            result['categorys'] = categorys;
-            return Post.get(req.params.bid);
-        }).then(function (post) {
-            if (!post) {
-                res.render('404', {
-                    status: 404, layout: false
-                });
-                return;
-            } else {
-                result['post'] = post;
-                result['admintitle'] = '编辑';
-                result['layout'] = 'admin-layout';
-                res.render('admin/edit', result);
-            }
-        }).catch(function (err) {
-            console.log(err);
-            res.redirect('/');
-        });
+        Category.getAll()
+            .then(function (categorys) {
+                result['categorys'] = categorys;
+                return Post.get(req.params.bid);
+            }).then(function (post) {
+                if (!post) {
+                    res.render('404', {
+                        status: 404, layout: false
+                    });
+                    return;
+                } else {
+                    result['post'] = post;
+                    result['admintitle'] = '编辑';
+                    result['layout'] = 'admin-layout';
+                    res.render('admin/edit', result);
+                }
+            }).catch(function (err) {
+                console.log(err);
+                res.redirect('/');
+            });
     });
 
 
