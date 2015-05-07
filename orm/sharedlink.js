@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var dbsetting = require('./dbsetting');
+var Q = require('q');
 
 function SharedLink(link) {
     this.id = link.id;
@@ -10,29 +11,25 @@ function SharedLink(link) {
 
 module.exports = SharedLink;
 
-SharedLink.getAll = function (callback) {
+SharedLink.getAll = function () {
+    var deferred = Q.defer();
     var connection = mysql.createConnection(dbsetting.mysql);
     connection.connect();
     var sql = 'SELECT id, text, link, create_time from sharedlink';
     connection.query(sql, [], function (err, results) {
         if (err) {
             console.log(err);
-            callback(err);
-            return;
-        }
-
-        if (results && results.length) {
+            deferred.reject(new Error(err));
+        } else if (results && results.length) {
             var links = [];
             for (var i = 0; i < results.length; i++) {
                 var link = new SharedLink(results[i]);
                 links.push(link);
             }
-            connection.end();
-            callback(err, links);
-            return;
+            deferred.resolve(links);
         }
         connection.end();
-        callback(err, null);
+        return deferred;
     });
 }
 

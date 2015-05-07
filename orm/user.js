@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var dbsetting = require('./dbsetting');
+var Q = require('q');
 
 function User(user) {
     this.uid = user.uid;
@@ -11,25 +12,21 @@ function User(user) {
 
 module.exports = User;
 
-User.get = function (username, callback) {
+User.get = function (username) {
+    var deferred = Q.defer();
     var connection = mysql.createConnection(dbsetting.mysql);
     connection.connect();
     var sql = 'SELECT uid, username, password, create_time, last_login from user where username= ?';
     connection.query(sql, [username], function (err, results) {
         if (err) {
             console.log(err);
-            callback(err);
-            return;
-        }
-
-        if (results && results.length) {
+            deferred.reject(new Error(err));
+        } else if (results && results.length) {
             var user = new User(results[0]);
-            connection.end();
-            callback(err, user);
-            return;
+            deferred.resolve(user);
         }
         connection.end();
-        callback(err, null);
+        return deferred;
     });
 }
 

@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var dbsetting = require('./dbsetting');
+var Q = require('q');
 
 var Category = function (category) {
     this.cid = category.cid;
@@ -10,52 +11,43 @@ var Category = function (category) {
 
 module.exports = Category;
 
-Category.get = function (bid, callback) {
+Category.get = function (bid) {
+    var deferred = Q.defer();
     var connection = mysql.createConnection(dbsetting.mysql);
     connection.connect();
     var sql = 'SELECT cid, name  from category where cid = ?';
     connection.query(sql, [username], function (err, results) {
         if (err) {
             console.log(err);
-            callback(err);
-            return;
-        }
-
-        if (results && results.length) {
+            deferred.reject(new Error(err));
+        } else if (results && results.length) {
             var category = new Category(results[0]);
-            connection.end();
-            callback(err, category);
-            return;
+            deferred.resolve(category);
         }
         connection.end();//先关连接
-        callback(err, null);
+        return deferred;
     });
 };
 
-Category.getAll = function (callback) {
+Category.getAll = function () {
+    var deferred = Q.defer();
     var connection = mysql.createConnection(dbsetting.mysql);
     connection.connect();
     var sql = 'SELECT cid,name from category ';
     connection.query(sql, [], function (err, results) {
         if (err) {
             console.log(err);
-            callback(err);
-            return;
-        }
-        console.log('results: ' + results);
-        if (results && results.length) {
+            deferred.reject(new Error(err));
+        } else if (results && results.length) {
             var categorys = [];
             for (var i = 0; i < results.length; i++) {
                 var category = new Category(results[i]);
                 categorys.push(category);
             }
-
-            connection.end();//先关连接
-            callback(err, categorys);
-            return;
+            deferred.resolve(categorys);
         }
         connection.end();
-        callback(err, []);
+        return deferred;
     });
 };
 

@@ -1,3 +1,4 @@
+var Q = require('q');
 var biz = require('../biz');
 var Post = require('../orm/post');
 var Category = require('../orm/category');
@@ -36,22 +37,23 @@ var checkNotLogin = function (req, res, next) {
 //设定路由表
 module.exports = function (router) {
     router.get('/', function (req, res, next) {
-        console.log("run index");
-        Post.getAll(function (err, posts) {
-
-            if (err) {
-                res.redirect('500');
-                return;
-            }
-            Link.getAll(function (err, links) {
-                if (err) {
-                    res.redirect('500');
-                    return;
-                }
-                res.render('index', {posts: posts, links: links});
-            });
-        });
-    });
+            console.log("run index");
+            var result = {};
+            Post.getAll().then(
+                function (post) {
+                    result["posts"] = post;
+                    return Link.getAll();
+                }).then(function (links) {
+                    result["links"] = links;
+                    res.render('index', result);
+                }).catch(function (err) {
+                    if (err) {
+                        res.redirect('500');
+                        return;
+                    }
+                });
+        }
+    );
 
     router.get('/contact', function (req, res, next) {
         console.log("run");
@@ -72,18 +74,21 @@ module.exports = function (router) {
         if (req.params.page === 'main') {
             res.render('main', {admintitle: '概况', layout: 'admin-layout'});
         } else if (req.params.page === 'new') {
-            Category.getAll(function (err, categorys) {
-                res.render('newpost', {admintitle: '新文章', categorys: categorys, layout: 'admin-layout'});
-            });
-        } else if (req.params.page === 'list') {
-            Post.getAll(function (err, posts) {
-                if (err) {
+            Category.getAll()
+                .then(function (categorys) {
+                    res.render('newpost', {admintitle: '新文章', categorys: categorys, layout: 'admin-layout'});
+                }).catch(function (err) {
                     console.log(err);
                     res.redirect('/');
-                    return;
-                }
-                res.render('admin/list', {admintitle: '所有文章', layout: 'admin-layout', posts: posts});
-            });
+                });
+        } else if (req.params.page === 'list') {
+            Post.getAll()
+                .then(function (posts) {
+                    res.render('admin/list', {admintitle: '所有文章', layout: 'admin-layout', posts: posts});
+                }).catch(function (err) {
+                    console.log(err);
+                    res.redirect('/');
+                });
         } else {
             res.render('404', {
                 status: 404, layout: false
@@ -99,26 +104,25 @@ module.exports = function (router) {
             return;
         }
 
-        Category.getAll(function (err, categorys) {
-            if (err) {
-                console.log(err);
-                res.redirect('/');
+        var result = {};
+        Category.getAll().then(function (categorys) {
+            result['categorys'] = categorys;
+            return Post.get(req.params.bid);
+        }).then(function (post) {
+            if (!post) {
+                res.render('404', {
+                    status: 404, layout: false
+                });
                 return;
+            } else {
+                result['post'] = post;
+                result['admintitle'] = '编辑';
+                result['layout'] = 'admin-layout';
+                res.render('admin/edit', result);
             }
-            Post.get(req.params.bid, function (err, post) {
-                if (err) {
-                    console.log(err);
-                    res.redirect('/');
-                    return;
-                }
-                if (!post) {
-                    res.render('404', {
-                        status: 404, layout: false
-                    });
-                    return;
-                }
-                res.render('admin/edit', {admintitle: '编辑', categorys: categorys, post: post, layout: 'admin-layout'});
-            });
+        }).catch(function (err) {
+            console.log(err);
+            res.redirect('/');
         });
     });
 
@@ -146,7 +150,8 @@ module.exports = function (router) {
             status: 404, layout: false
         });
     })
-};
+}
+;
 
 
 
