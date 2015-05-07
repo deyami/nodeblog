@@ -20,7 +20,7 @@ Category.get = function (bid) {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
-        } else if (results && results.length) {
+        } else if (results) {
             var category = new Category(results[0]);
             deferred.resolve(category);
         }
@@ -38,7 +38,7 @@ Category.getAll = function () {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
-        } else if (results && results.length) {
+        } else if (results) {
             var categorys = [];
             for (var i = 0; i < results.length; i++) {
                 var category = new Category(results[i]);

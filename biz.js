@@ -42,11 +42,8 @@ module.exports = {
         var username = req.body['username'];
         var pswd = md5(req.body['password']);
 
-        User.get(req.body['username'], function (err, user) {
+        User.get(req.body['username']).then(function (user) {
             var error = '';
-            if (err) {
-                error = '注册发生错误';
-            }
             if (user) {
                 error = '用户已经存在';
             }
@@ -67,6 +64,11 @@ module.exports = {
                 setsession(req, user);
                 res.redirect('/');
             });
+        }).catch(function(err){
+            if (err) {
+                error = '注册发生错误';
+                res.redirect('/');
+            }
         });
     },
 
@@ -82,7 +84,7 @@ module.exports = {
         var pswd = md5(req.body['password']);
         var remeberme = req.body['password'];
 
-        User.get(req.body['username'], function (err, user) {
+        User.get(req.body['username']).then(function (user) {
             if (!user) {
                 err = '用户不存在';
             } else if (user.password != pswd) {
@@ -90,15 +92,14 @@ module.exports = {
             } else if (err) {
                 err = '登录出错';
             }
-
+            setsession(req, user, remeberme);
+            return res.redirect('/');
+        }).catch(function (err) {
             if (err) {
                 res.locals.error = err;
                 console.log(err);
                 return next(err);
             }
-
-            setsession(req, user, remeberme);
-            return res.redirect('/');
         });
     },
 
@@ -113,12 +114,7 @@ module.exports = {
             return;
         }
 
-        Post.get(req.params.bid, function (err, post) {
-            if (err) {
-                console.log(err);
-                return next(err);
-            }
-
+        Post.get(req.params.bid).then(function (post) {
             if (!post) {
                 res.render('404', {
                     status: 404, layout: false
@@ -126,6 +122,11 @@ module.exports = {
                 return;
             }
             res.json('detail', post);
+        }).catch(function (err) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
         });
     },
 
@@ -156,32 +157,29 @@ module.exports = {
             res.redirect('/');
             return;
         }
-
-        Post.getAll(function (err, posts) {
-
-            if (err) {
-                return next(err);
-            }
-            Link.getAll(function (err, links) {
+        var result = {};
+        Post.getAll()
+            .then(function (posts) {
+                result["posts"] = posts;
+                return Link.getAll();
+            }).then(function (links) {
+                result["links"] = links;
+                return Post.get(req.params.bid);
+            }).then(function (post) {
+                result["post"] = post;
+                if (!post) {
+                    res.render('404', {
+                        status: 404, layout: false
+                    });
+                } else {
+                    res.render('detail', result);
+                }
+            }).catch(function (err) {
                 if (err) {
+                    console.log(err);
                     return next(err);
                 }
-
-                Post.get(req.params.bid, function (err, post) {
-                    if (err) {
-                        console.log(err);
-                        return next(err);
-                    }
-                    if (!post) {
-                        res.render('404', {
-                            status: 404, layout: false
-                        });
-                        return;
-                    }
-                    res.render('detail', {post: post, posts: posts, links: links});
-                });
             });
-        });
     },
 
     edit_post: function (req, res, next) {

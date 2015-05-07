@@ -21,8 +21,11 @@ User.get = function (username) {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
-        } else if (results && results.length) {
-            var user = new User(results[0]);
+        } else if (results) {
+            var user = null;
+            if(results.length > 0){
+                var user = new User(results[0]);
+            }
             deferred.resolve(user);
         }
         connection.end();
