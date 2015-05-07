@@ -1,3 +1,3 @@
 #! /bin/bash
 
-node ../app.js 2>1
+node ../app.js

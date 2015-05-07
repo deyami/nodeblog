@@ -37,7 +37,7 @@
         </label>
         <button class="btn btn-large btn-primary" type="submit">登录</button>
 
-        <% if(error) { %>
+        <% if(typeof(error) != "undefined") { %>
         <hr/>
         <div class="alert alert-error">
             <strong>Warning!</strong> <%= error %>

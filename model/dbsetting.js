@@ -1,9 +1,9 @@
 module.exports = {
     mysql: {
         host: 'localhost',
-        port: 5506,
-        user: 'root',
-        password: 'list',
+        port: 3306,
+        user: 'shanlu',
+        password: 'taobao1234',
         charset: 'utf8',
         database: 'nodeblog'
     },
