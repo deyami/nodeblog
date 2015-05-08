@@ -32,10 +32,10 @@ Post.get = function (pid) {
     return deferred.promise;
 };
 
-Post.remove = function (bid) {
+Post.remove = function (pid) {
     var deferred = Q.defer();
-    var sql = 'delete  from post where bid= ?';
-    db.query(sql, [bid], function (err, result) {
+    var sql = 'delete  from post where pid= ?';
+    db.query(sql, [pid], function (err, result) {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
@@ -85,7 +85,7 @@ Post.prototype.save = function save() {
         if (err) {
             deferred.reject(new Error(err));
         } else if (result) {
-            deferred.resolve(posts);
+            deferred.resolve(result);
         }
     });
     return deferred.promise;
