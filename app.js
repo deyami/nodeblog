@@ -12,7 +12,7 @@ var http = require('http');
 var path = require('path');
 var setting = require('./setting');
 var filter = require('./controller/filter');
-//var RedisStore = require('connect-redis')(express);
+var RedisStore = require('connect-redis')(session);
 var dbsetting = require('./model/dbsetting');
 
 var app = express();
@@ -25,7 +25,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(cookieParser());
-//app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
+app.use(session({store: new RedisStore(dbsetting.redis), secret: setting.sessionsecret}));
 app.use(methodOverride());
 app.use(errorhandler());
 

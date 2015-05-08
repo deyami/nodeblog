@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var dbsetting = require('./dbsetting');
+var dbsetting = require('./dbsetting').mysql;
 var Q = require('q');
 
 function SharedLink(link) {
@@ -13,7 +13,7 @@ module.exports = SharedLink;
 
 SharedLink.getAll = function () {
     var deferred = Q.defer();
-    var connection = mysql.createConnection(dbsetting.mysql);
+    var connection = mysql.createConnection(dbsetting);
     connection.connect();
     var sql = 'SELECT id, content, link, create_time from sharedlink';
     connection.query(sql, [], function (err, results) {

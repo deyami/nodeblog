@@ -55,8 +55,9 @@ Post.getAll = function () {
     var deferred = Q.defer();
     var connection = mysql.createConnection(dbsetting.mysql);
     connection.connect();
-    var sql = 'SELECT a.pid, a.title,a.content,b.username as author,a.create_time,a.last_update,c.name as category from post a, user b , category c where a.author=b.uid and a.category=c.cid order by a.create_time desc';
+    var sql = 'SELECT a.pid, a.title,a.content,b.username as author,a.create_time,a.last_update,a.category from post a, user b where a.author=b.uid  order by a.create_time desc';
     connection.query(sql, [], function (err, results) {
+        console.log(results)
         if (err) {
             deferred.reject(new Error(err));
         } else if (results) {

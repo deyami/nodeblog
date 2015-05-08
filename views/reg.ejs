@@ -102,7 +102,7 @@
         <input type="password" class="input-block-level" placeholder="重复密码" name="repassword">
         <button class="btn btn-large btn-primary" type="submit">注册</button>
 
-        <% if(error) { %>
+        <% if(typeof(error) != "undefined") { %>
         <hr/>
         <div class="alert alert-error">
             <strong>Warning!</strong> <%= error %>

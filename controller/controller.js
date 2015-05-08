@@ -72,11 +72,11 @@ module.exports = function (router) {
     router.get('/admin/:page', checkLogin);
     router.get('/admin/:page', function (req, res, next) {
         if (req.params.page === 'main') {
-            res.render('main', {admintitle: '概况', layout: 'admin-layout'});
+            res.render('admin/main', {admintitle: '概况', layout: 'admin-layout'});
         } else if (req.params.page === 'new') {
             Category.getAll()
                 .then(function (categorys) {
-                    res.render('newpost', {admintitle: '新文章', categorys: categorys, layout: 'admin-layout'});
+                    res.render('admin/newpost', {admintitle: '新文章', categorys: categorys, layout: 'admin-layout'});
                 }).catch(function (err) {
                     console.log(err);
                     res.redirect('/');

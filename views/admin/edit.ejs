@@ -1,71 +1,113 @@
-<form method="post" action="">
-    <div>
-        <div>
-            <label class="checkbox">
-                <h5 class="muted">标题：</h5>
-                <input type="text" id="title" name="title" style="width:500px" placeholder="输入标题..."></input>
-            </label>
-            <label class="checkbox">
-                <h7 class="muted">分类：</h7>
-                <select id="category">
-                    <% for(var i = 0;i < locals.categorys.length;i++){ %>
-                    <option value="<%= locals.categorys[i].cid %>"><%= locals.categorys[i].name %></option>
-                    <% } %>
-                </select>
-            </label>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="wrap">
+    <% include ../top %>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <% include sidebar %>
+            <div class="span10">
+                <div class="row-fluid">
+                    <h2 class="muted"><%= admintitle %></h2>
+                    <hr/>
+
+                    <form method="post" action="">
+                        <div>
+                            <div>
+                                <label class="checkbox">
+                                    <h5 class="muted">标题：</h5>
+                                    <input type="text" id="title" name="title" style="width:500px" placeholder="输入标题..."></input>
+                                </label>
+                                <label class="checkbox">
+                                    <h7 class="muted">分类：</h7>
+                                    <select id="category">
+                                        <% for(var i = 0;i < categorys.length;i++){ %>
+                                        <option value="<%= categorys[i].cid %>"><%= categorys[i].name %></option>
+                                        <% } %>
+                                    </select>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="checkbox">
+                                    <h5 class="muted">内容：</h5>
+                                    <textarea id="content" name="content" rows="15" cols="100" textarea class="ckeditor"></textarea>
+                                </label>
+                            </div>
+                            <br/>
+                            <label class="checkbox">
+                                <input type="checkbox"> 保存为草稿
+                            </label>
+                            <input type="hidden" id="bid" name="bid"></input>
+                            <input id="save" class="btn btn-large btn-primary" type="button" name="save" value="发布"/>
+                            <input id="draft" class="btn btn-large btn-primary" type="reset" name="reset" value="reset"/>
+                        </div>
+                    </form>
+                    <script src="/ckeditor/ckeditor.js"></script>
+
+                    <script type="text/javascript">
+                        CKEDITOR.replace('content', {});
+                    </script>
+                    <script type="text/javascript">
+                        $().ready(function () {
+                            $('#save').click(function () {
+                                var bid = $('#bid').val();
+                                var title = $('#title').val();
+                                var editor = CKEDITOR.instances.content;
+                                var content = editor.getData();
+                                var category = $('#category').val();
+
+                                var params = {
+                                    bid: bid,
+                                    title: title,
+                                    content: content,
+                                    category: category
+                                };
+                                $.post('/post/edit', params, function (data) {
+                                    alert(data.msg);
+                                });
+                            });
+                        });
+
+                    </script>
+
+                    <script type="text/javascript">
+                        $().ready(function () {
+
+                            $.get('/post/<%= blog.bid%>', function (data) {
+                                $('#title').val(data.title);
+                                var editor = CKEDITOR.instances.content;
+                                editor.setData(data.content);
+                                $('#category').val(data.category);
+                                $('#bid').val(data.bid);
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
         </div>
-        <div>
-            <label class="checkbox">
-                <h5 class="muted">内容：</h5>
-                <textarea id="content" name="content" rows="15" cols="100" textarea class="ckeditor"></textarea>
-            </label>
-        </div>
-        <br/>
-        <label class="checkbox">
-            <input type="checkbox"> 保存为草稿
-        </label>
-        <input type="hidden" id="bid" name="bid"></input>
-        <input id="save" class="btn btn-large btn-primary" type="button" name="save" value="发布"/>
-        <input id="draft" class="btn btn-large btn-primary" type="reset" name="reset" value="reset"/>
     </div>
-</form>
-<script src="/ckeditor/ckeditor.js"></script>
+</div>
+</body>
+</html>
 
-<script type="text/javascript">
-    CKEDITOR.replace('content', {});
-</script>
-<script type="text/javascript">
-    $().ready(function () {
-        $('#save').click(function () {
-            var bid = $('#bid').val();
-            var title = $('#title').val();
-            var editor = CKEDITOR.instances.content;
-            var content = editor.getData();
-            var category = $('#category').val();
 
-            var params = {
-                bid: bid,
-                title: title,
-                content: content,
-                category: category
-            };
-            $.post('/post/edit', params, function (data) {
-                alert(data.msg);
-            });
-        });
-    });
-
-</script>
-
-<script type="text/javascript">
-    $().ready(function () {
-
-        $.get('/post/<%= locals.blog.bid%>', function (data) {
-            $('#title').val(data.title);
-            var editor = CKEDITOR.instances.content;
-            editor.setData(data.content);
-            $('#category').val(data.category);
-            $('#bid').val(data.bid);
-        });
-    });
-</script>

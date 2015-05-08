@@ -13,7 +13,6 @@ var md5 = function (ps) {
 
 var setsession = function (req, user, remeberme) {
     if (req.session) {
-        console.log(req.session);
         req.session.user = user;
         if (remeberme) {
             var hour = 3600000;
@@ -89,8 +88,6 @@ module.exports = {
                 err = '用户不存在';
             } else if (user.password != pswd) {
                 err = '密码错误';
-            } else if (err) {
-                err = '登录出错';
             }
             setsession(req, user, remeberme);
             return res.redirect('/');
