@@ -56,14 +56,18 @@ module.exports = {
                 password: pswd
             });
 
-            user.save(function (err) {
-                if (err) {
-                    return next(err);
-                }
-                setsession(req, user);
-                res.redirect('/');
-            });
-        }).catch(function(err){
+            user.save()
+                .then(function (uid) {
+                    user.uid = uid;
+                    setsession(req, user);
+                    res.redirect('/');
+                }).catch(function (err) {
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
+                });
+        }).catch(function (err) {
             if (err) {
                 error = '注册发生错误';
                 res.redirect('/');
@@ -140,13 +144,15 @@ module.exports = {
             category: category
         });
 
-        post.save(function (err) {
-            if (err) {
-                console.log(err);
-                return res.json({msg: '保存失败'});
-            }
-            res.json({msg: '保存成功'});
-        });
+        post.save()
+            .then(function (result) {
+                res.json({msg: '保存成功'});
+            }).catch(function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.json({msg: '保存失败'});
+                }
+            });
     },
 
     get_post_detail: function (req, res, next) {
@@ -197,13 +203,15 @@ module.exports = {
             category: category
         });
 
-        post.update(function (err) {
-            if (err) {
-                console.log(err);
-                return res.json({msg: 'error'});
-            }
-            res.json({msg: 'success'});
-        });
+        post.update()
+            .then(function (result) {
+                res.json({msg: 'success'});
+            }).catch(function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.json({msg: 'error'});
+                }
+            });
     },
 
     delete_post: function (req, res, next) {
@@ -212,12 +220,13 @@ module.exports = {
             return;
         }
 
-        Post.remove(req.params.bid, function (err) {
+        Post.remove(req.params.bid).then(function (result) {
+            res.redirect('/admin/list');
+        }).catch(function (err) {
             if (err) {
                 console.log(err);
                 return next(err);
             }
-            res.redirect('/admin/list');
         });
     }
 }

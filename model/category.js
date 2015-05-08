@@ -1,5 +1,4 @@
-var mysql = require('mysql');
-var dbsetting = require('./dbsetting');
+var db = require('./db');
 var Q = require('q');
 
 var Category = function (category) {
@@ -13,10 +12,8 @@ module.exports = Category;
 
 Category.get = function (bid) {
     var deferred = Q.defer();
-    var connection = mysql.createConnection(dbsetting.mysql);
-    connection.connect();
     var sql = 'SELECT cid, name  from category where cid = ?';
-    connection.query(sql, [username], function (err, results) {
+    db.query(sql, [username], function (err, results) {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
@@ -24,17 +21,14 @@ Category.get = function (bid) {
             var category = new Category(results[0]);
             deferred.resolve(category);
         }
-        connection.end();//先关连接
     });
     return deferred.promise;
 };
 
 Category.getAll = function () {
     var deferred = Q.defer();
-    var connection = mysql.createConnection(dbsetting.mysql);
-    connection.connect();
     var sql = 'SELECT cid,name from category ';
-    connection.query(sql, [], function (err, results) {
+    db.query(sql, [], function (err, results) {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
@@ -46,17 +40,20 @@ Category.getAll = function () {
             }
             deferred.resolve(categorys);
         }
-        connection.end();
     });
     return deferred.promise;
 };
 
-Category.prototype.save = function (callback) {
-    var connection = mysql.createConnection(dbsetting.mysql);
-    connection.connect();
+Category.prototype.save = function () {
+    var deferred = Q.defer();
     var sql = 'insert into category (name) values (?)';
-    connection.query(sql, [this.name], function (err, result) {
-        connection.end();//先关连接
-        callback(err);
+    db.query(sql, [this.name], function (err, result) {
+        if (err) {
+            console.log(err);
+            deferred.reject(new Error(err));
+        } else if (results) {
+            deferred.resolve(result);
+        }
     });
+    return deferred.promise;
 };
