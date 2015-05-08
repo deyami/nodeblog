@@ -57,7 +57,7 @@
                             <label class="checkbox">
                                 <input type="checkbox"> 保存为草稿
                             </label>
-                            <input type="hidden" id="bid" name="bid"></input>
+                            <input type="hidden" id="pid" name="pid"/>
                             <input id="save" class="btn btn-large btn-primary" type="button" name="save" value="发布"/>
                             <input id="draft" class="btn btn-large btn-primary" type="reset" name="reset" value="reset"/>
                         </div>
@@ -70,14 +70,14 @@
                     <script type="text/javascript">
                         $().ready(function () {
                             $('#save').click(function () {
-                                var bid = $('#bid').val();
+                                var pid = $('#pid').val();
                                 var title = $('#title').val();
                                 var editor = CKEDITOR.instances.content;
                                 var content = editor.getData();
                                 var category = $('#category').val();
 
                                 var params = {
-                                    bid: bid,
+                                    pid: pid,
                                     title: title,
                                     content: content,
                                     category: category
@@ -92,16 +92,16 @@
 
                     <script type="text/javascript">
                         $().ready(function () {
-
-                            $.get('/post/<%= blog.bid%>', function (data) {
+                            $.get('/post/<%= post.pid%>', function (data) {
                                 $('#title').val(data.title);
                                 var editor = CKEDITOR.instances.content;
                                 editor.setData(data.content);
                                 $('#category').val(data.category);
-                                $('#bid').val(data.bid);
+                                $('#pid').val(data.pid);
                             });
                         });
                     </script>
+
                 </div>
             </div>
         </div>

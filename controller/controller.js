@@ -97,9 +97,9 @@ module.exports = function (router) {
         }
     });
 
-    router.get('/admin/edit/:bid', checkLogin);
-    router.get('/admin/edit/:bid', function (req, res, next) {
-        if (!req.params.bid) {
+    router.get('/admin/edit/:pid', checkLogin);
+    router.get('/admin/edit/:pid', function (req, res, next) {
+        if (!req.params.pid) {
             res.redirect('/admin/main');
             return;
         }
@@ -108,7 +108,7 @@ module.exports = function (router) {
         Category.getAll()
             .then(function (categorys) {
                 result['categorys'] = categorys;
-                return Post.get(req.params.bid);
+                return Post.get(req.params.pid);
             }).then(function (post) {
                 if (!post) {
                     res.render('404', {

@@ -14,21 +14,27 @@ var Post = function (post) {
 
 module.exports = Post;
 
-Post.get = function (bid) {
+Post.get = function (pid) {
     var deferred = Q.defer();
     var connection = mysql.createConnection(dbsetting.mysql);
     connection.connect();
     var sql = 'SELECT pid, title,content,author,create_time,last_update,category  from post where pid= ? ';
-    connection.query(sql, [bid], function (err, results) {
+    connection.query(sql, [pid], function (err, results) {
+        console.log(results);
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
-        } else if (results && results.length) {
-            deferred.resolve(results);
+        } else if (results) {
+            var posts = [];
+            for (var i = 0; i < results.length; i++) {
+                var post = new Post(results[i]);
+                posts.push(post);
+            }
+            deferred.resolve(posts[0]);
         }
         connection.end();
-        return deferred.promise;
     });
+    return deferred.promise;
 };
 
 Post.remove = function (bid, callback) {
@@ -66,7 +72,7 @@ Post.getAll = function () {
                 var post = new Post(results[i]);
                 posts.push(post);
             }
-            deferred.resolve(results);
+            deferred.resolve(posts);
         }
         connection.end();
     });

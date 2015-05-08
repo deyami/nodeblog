@@ -43,13 +43,13 @@
                         <tbody>
                         <% for(var i = 0;i < posts.length;i++){ %>
                         <tr>
-                            <td><%= posts[i].bid %></td>
-                            <td colspan="5"><a href="/post/detail/<%= posts[i].bid %>"
+                            <td><%= posts[i].pid %></td>
+                            <td colspan="5"><a href="/post/detail/<%= posts[i].pid %>"
                                                target="_blank"><%= posts[i].title %></a></td>
                             <td><%= posts[i].author %></td>
                             <td><%= posts[i].create_time %></td>
-                            <td><a class="btn btn-success" href="/admin/edit/<%= posts[i].bid %>">编辑</a>|<a class="btn btn-danger"
-                                                                                                                   href="/post/delete/<%= posts[i].bid %>">删除</a>
+                            <td><a class="btn btn-success" href="/admin/edit/<%= posts[i].pid %>">编辑</a>|<a class="btn btn-danger"
+                                                                                                                   href="/post/delete/<%= posts[i].pid %>">删除</a>
                             </td>
                         </tr>
                         <% } %>
