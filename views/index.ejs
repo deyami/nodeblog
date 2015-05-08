@@ -39,7 +39,7 @@
     <div class="container-fluid">
         <div class="span17">
             <div class="row">
-                <div class="span7">
+                <div class="span9">
                     <div class="row marketing">
                         <% for(var i = 0 ;i < posts.length;i++){ %>
                         <div>
@@ -53,44 +53,6 @@
                         </div>
                         <hr/>
                         <% } %>
-                    </div>
-                </div>
-                <div class="span2">
-                    <div class="row">
-                        <h3 class="muted">分享</h3>
-
-                        <div>
-                            <% include share/share-sina %>
-                        </div>
-                        <div>
-                            <% include share/share-renren %>
-                        </div>
-                        <br/>
-                        <br/>
-                        <br/>
-
-                        <h3 class="muted">最近</h3>
-                        <ul>
-                            <% for(var i = 0 ;i < posts.length;i++){ %>
-                            <li><a href="/post/detail/<%= posts[i].pid %>"><%= posts[i].title %></a></li>
-                            <% } %>
-                        </ul>
-                        <br/>
-                        <br/>
-                        <br/>
-
-                        <h3 class="muted">分享</h3>
-                        <ul>
-                            <% for(var i = 0 ;i < links.length;i++){ %>
-                            <li><a href="<%= links[i].link %>" target="_blank"><%= links[i].content %></a></li>
-                            <% } %>
-                        </ul>
-                        <br/>
-                        <br/>
-                        <br/>
-
-                        <h3 class="muted">功能</h3>
-                        <h5 class="muted">暂不开放...</h5>
                     </div>
                 </div>
             </div>
