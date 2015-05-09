@@ -52,7 +52,7 @@
                             <div class="BNE_txtC OR">
                                 <span class="tit">分享</span>
                                 <div class="bshare-custom" style="display:inline;margin-left:5px;">
-                                    <a title="分享到微信" class="weixin" href="javascript:void(0);" onclick="showQrcode('<%= myhost %>/qrcode/<%= posts[i].qrcodePath %>')"></a>
+                                    <a title="分享到微信" class="weixin" href="javascript:void(0);" onclick="showQrcode('<%= myhost %>/post/detail/<%= posts[i].pid %>')"></a>
                                     <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
                                     <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
                                 </div>
@@ -81,12 +81,13 @@
         </div>
         <div class="bsFrameDiv">
             <div style="height: 220px; width: 220px; display: block;">
-                <img id="bsImg" style="width:178px;height:178px;margin:21px;display:inline-block;" src="">
+                <div id="bsImg" style="width:178px;height:178px;margin:21px;display:inline-block;"></div>
             </div>
         </div>
     </div>
     <hr/>
     <% include foot %>
+
 </div>
 <!-- /container -->
 
@@ -95,6 +96,7 @@
 <script type="text/javascript" src="/js/shCore.js"></script>
 <script type="text/javascript" src="/js/shBrushJava.js"></script>
 <script type="text/javascript">SyntaxHighlighter.all();</script>
+<script type="text/javascript" src="/js/jquery.qrcode.min.js"></script>
 <script src="/js/share.js"></script>
 </body>
 </html>
