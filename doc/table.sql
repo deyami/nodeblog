@@ -16,6 +16,7 @@ create table post(
 	author bigint not null,/*作者id*/
 	poststate int not null default 0,/*文章状态，0为正式发布，1为草稿*/
 	category int ,/*所属分类，0为通用（默认分类）*/
+	qrcode_path varchar(512) ,/*二维码地址*/
 	create_time datetime not null,
 	last_update datetime not null,
 	primary key(pid)

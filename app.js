@@ -36,6 +36,7 @@ app.use(filter.sessionHandler);
 routes(app);//执行路由
 app.locals.title = setting.title;
 app.locals.subtitle = setting.subtitle;
+app.locals.myhost=setting.myhost
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("server listening on port " + app.get('port'));

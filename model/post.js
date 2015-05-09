@@ -7,6 +7,7 @@ var Post = function (post) {
     this.content = post.content;
     this.author = post.author;
     this.category = post.category;
+    this.qrcodePath = post.qrcode_path
     this.create_time = post.create_time;
     this.last_update = post.last_update;
 }
@@ -15,7 +16,7 @@ module.exports = Post;
 
 Post.get = function (pid) {
     var deferred = Q.defer();
-    var sql = 'SELECT pid, title,content,author,create_time,last_update,category  from post where pid= ? ';
+    var sql = 'SELECT pid, title,content,qrcode_path,author,create_time,last_update,category  from post where pid= ? ';
     db.query(sql, [pid], function (err, results) {
         if (err) {
             console.log(err);
@@ -62,7 +63,7 @@ Post.prototype.update = function () {
 
 Post.getAll = function () {
     var deferred = Q.defer();
-    var sql = 'SELECT a.pid, a.title,a.content,b.username as author,a.create_time,a.last_update,a.category from post a, user b where a.author=b.uid  order by a.create_time desc';
+    var sql = 'SELECT a.pid, a.title,a.content,b.username as author,a.create_time,a.last_update,a.category,a.qrcode_path from post a, user b where a.author=b.uid  order by a.create_time desc';
     db.query(sql, [], function (err, results) {
         if (err) {
             deferred.reject(new Error(err));
@@ -80,8 +81,8 @@ Post.getAll = function () {
 
 Post.prototype.save = function save() {
     var deferred = Q.defer();
-    var sql = 'insert into post (title,content,author,create_time, category , last_update) values (?,?,?,now(),?,now())';
-    db.query(sql, [this.title, this.content, this.author, this.category], function (err, result) {
+    var sql = 'insert into post (title,content,author,create_time, category , qrcode_path,last_update) values (?,?,?,now(),?,?,now())';
+    db.query(sql, [this.title, this.content, this.author, this.category,this.qrcodePath], function (err, result) {
         if (err) {
             deferred.reject(new Error(err));
         } else if (result) {

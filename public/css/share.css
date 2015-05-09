@@ -1,0 +1,100 @@
+.bshare-custom {
+    font-size: 13px;
+    line-height: 16px !important;
+}
+
+.BNE_opera .OR {
+    float: right;
+}
+
+.bshare-custom .bshare-douban {
+    background: url("/img/share/top_logos_sprite.png") no-repeat 0 -36px;
+    display: inline-block;
+}
+
+.bshare-custom .bshare-sinaminiblog {
+    background: url("/img/share/top_logos_sprite.png") no-repeat 0 -270px;
+    display: inline-block;
+}
+
+.bshare-custom .weixin {
+    background: url("/img/share/weixin.png") no-repeat;
+    display: inline-block;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.BNE_opera {
+
+}
+
+.bshare-custom a {
+    padding-left: 19px;
+    height: 16px;
+    _height: 18px;
+    text-decoration: none;
+    display: none;
+    zoom: 1;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #333;
+    margin-right: 3px;
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}
+
+.BNE_opera .OR {
+    float: right;
+}
+
+.BNE_txtC {
+    color: #999;
+}
+
+.BNE_opera .OL {
+    float: left;
+    font-size: 14px;
+}
+
+.bsBox {
+    display: none;
+    z-index: 100000001;
+    font-size: 12px;
+    background: url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;
+    padding: 6px !important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: nonw;
+    left: 50%; top: 50%; margin-left: -110px; margin-top: -122.5px; position: fixed; height: 245px; width: 220px;
+}
+
+
+
+.bsTop {
+    color: #666;
+    background: #f2f2f2;
+    height: 24px;
+    line-height: 24px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.bsClose {
+    _overflow: hidden;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10000000;
+    color: #666;
+    font-weight: bold;
+    font-family: Helvetica,Arial;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.bsFrameDiv, #bsMorePanel {
+    border: none;
+    background: #fff;
+}
