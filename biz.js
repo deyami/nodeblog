@@ -134,12 +134,14 @@ module.exports = {
     },
 
     save_post: function (req, res, next) {
+        var pid = req.body['pid'];
         var title = req.body['title'];
         var content = req.body['content'];
         var author = req.session.user.uid;
         var category = req.body['category'];
 
         var post = new Post({
+            pid: pid,
             title: title,
             content: content,
             author: author,

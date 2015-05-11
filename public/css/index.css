@@ -1,68 +1,80 @@
- html{
-        color: #555555;
-      }
-      body {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        background: url("/img/bg3.jpg") repeat fixed center top transparent;
-      } 
+html {
+    color: #555555;
+}
 
-      /* Custom container */
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 1000px;
-        background: none repeat scroll 0 0 #FFFFFF;
-        box-shadow: -2px 0 5px #AAAAAA,0 -2px 5px #AAAAAA,0 2px 5px #AAAAAA,2px 0 5px #AAAAAA;
-        border-color:#999999;
-        margin: 20px auto 20px auto;
-        padding: 60px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
-      
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: url("/img/bg3.jpg") repeat fixed center top transparent;
+}
 
-      /* Main marketing message and sign up button */
-      .jumbotron {
-        margin: 60px 0;
-        text-align: center;
-      }
-      .jumbotron h1 {
-        font-size: 72px;
-        line-height: 1;
-      }
-      .jumbotron .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-      }
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    max-width: 1000px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: -2px 0 5px #AAAAAA, 0 -2px 5px #AAAAAA, 0 2px 5px #AAAAAA, 2px 0 5px #AAAAAA;
+    border-color: #999999;
+    margin: 20px auto 20px auto;
+    padding: 60px;
+}
 
-      /* Supporting marketing content */
-      .marketing { 
-        margin: 60px 0;
-      }
-      .marketing p + h4 {
-        margin-top: 28px;sd
-      }
-      /* Set the fixed height of the footer here */
-      #push,
-      #footer {
-        height: 60px;
-      }
+.container-narrow > hr {
+    margin: 30px 0;
+}
 
+/* Main marketing message and sign up button */
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
 
-      /* Lastly, apply responsive CSS fixes as necessary */
-      @media (max-width: 767px) {
-        #footer {
-          margin-left: -20px;
-          margin-right: -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-      .container {
-        width: auto;
-        max-width: 680px;
-      }
-      .container .credit {
-        margin: 20px 0;
-      }
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
+}
+
+.marketing p + h4 {
+    margin-top: 28px;
+    sd
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 60px;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.container {
+    width: auto;
+    max-width: 680px;
+}
+
+.container .credit {
+    margin: 20px 0;
+}
+
+.post-spliter {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}

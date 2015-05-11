@@ -80,8 +80,8 @@ Post.getAll = function () {
 
 Post.prototype.save = function save() {
     var deferred = Q.defer();
-    var sql = 'insert into post (title,content,author,create_time, category ,last_update) values (?,?,?,now(),?,?,now())';
-    db.query(sql, [this.title, this.content, this.author, this.category], function (err, result) {
+    var sql = 'update post set title=?,content=?, category=? ,last_update=now() where pid=?';
+    db.query(sql, [this.title, this.content, this.category, this.pid], function (err, result) {
         if (err) {
             deferred.reject(new Error(err));
         } else if (result) {
