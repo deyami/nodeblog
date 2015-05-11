@@ -192,11 +192,6 @@ module.exports = {
         var content = req.body['content'];
         var category = req.body['category'];
 
-        if (!bid) {
-            res.redirect('/admin/main');
-            return;
-        }
-
         var post = new Post({
             bid: bid,
             title: title,
