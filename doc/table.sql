@@ -1,4 +1,6 @@
 /*用户表*/
+CREATE DATABASE IF NOT EXISTS nodeblog DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+
 create table user(
 	uid bigint not null auto_increment,
     username varchar(64) not null ,
@@ -50,3 +52,7 @@ create table reply(
 	last_update datetime not null,
 	primary key(rid)
 );
+
+create user shanlu   IDENTIFIED by 'taobao1234';
+GRANT ALL PRIVILEGES ON nodeblog.* TO shanlu@'localhost' IDENTIFIED BY 'taobao1234';
+FLUSH PRIVILEGES;
