@@ -49,7 +49,7 @@ Post.remove = function (pid) {
 Post.prototype.update = function () {
     var deferred = Q.defer();
     var sql = 'update post set  title=?,content=?, category=? , last_update=now() where pid=?';
-    db.query(sql, [this.title, this.content, this.category, this.bid], function (err, result) {
+    db.query(sql, [this.title, this.content, this.category, this.pid], function (err, result) {
         if (err) {
             console.log(err);
             deferred.reject(new Error(err));
@@ -80,8 +80,8 @@ Post.getAll = function () {
 
 Post.prototype.save = function save() {
     var deferred = Q.defer();
-    var sql = 'update post set title=?,content=?, category=? ,last_update=now() where pid=?';
-    db.query(sql, [this.title, this.content, this.category, this.pid], function (err, result) {
+    var sql = 'insert into post (title,content,author,create_time, category , qrcode_path,last_update) values (?,?,?,now(),?,?,now())';
+    db.query(sql, [this.title, this.content, this.author, this.category,this.qrcodePath], function (err, result) {
         if (err) {
             deferred.reject(new Error(err));
         } else if (result) {
