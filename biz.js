@@ -107,7 +107,7 @@ module.exports = {
     },
 
     logout: function (req, res, next) {
-        req.session.user = null;
+        req.session.user = undefined;
         res.redirect('/');
     },
 
